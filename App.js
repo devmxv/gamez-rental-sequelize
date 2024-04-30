@@ -36,6 +36,16 @@ app.set('view engine', 'ejs')
 // Route definition
 app.use('/', require('./server/routes/user.routes'))
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+const main = async () => {
+  try {
+    await sequelize.authenticate()
+    console.log("Connection has been established")
+    app.listen(port)
+    console.log(`App listening on port ${port}`)
+  } catch (error) {
+    console.error("Unable to connect to DB!", error)
+  }
+}
+
+main()
+
