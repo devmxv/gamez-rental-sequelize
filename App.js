@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
-const sequelize = require('./server/config/db.js')
+const sequelize = require('./config/db.js')
 const expressLayout = require('express-ejs-layouts')
 const methodOverride = require('method-override')
 
@@ -34,7 +34,7 @@ app.set('layout', './layouts/main')
 app.set('view engine', 'ejs')
 
 // Route definition
-app.use('/', require('./server/routes/user.routes'))
+app.use('/', require('./routes/user.routes.js'))
 
 const main = async () => {
   try {
