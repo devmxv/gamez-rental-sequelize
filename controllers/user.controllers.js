@@ -1,5 +1,9 @@
 const db = require('../models/index')
-const User = require('../models/user')
+const Bcrypt = require('bcrypt')
+const User = require('../models').User
+const jwt = require('jsonwebtoken')
+
+require('dotenv').config()
 
 
 exports.homepage = async (req, res) => {
@@ -16,17 +20,39 @@ exports.homepage = async (req, res) => {
   }
 }
 
+
 exports.login = async (req, res) => {
-  const locals = {
-    title: 'Gamez Rental - Login',
-    description: 'User login'
-  }
+  //console.log(req.body)
   try {
-    res.render('login', {
-      locals
+    const { userName, password } = req.body
+
+    const user = await User.findOne({
+      where: { userName },
     })
+    console.log(user)
+    if (!user) {
+      res.render('login')
+    } else {
+      Bcrypt.compare(password, user.password, (error, result) => {
+        if (result) {
+          const token = jwt.sign(
+            {
+              name: user.firstName,
+              email: user.email
+            }, process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '300s' }
+          )
+          res.render('dashboard', {
+            userName,
+          })
+        } else {
+          res.render('login')
+        }
+      })
+    }
   } catch (error) {
-    console.log(error)
+    const msg = 'Error en inicio de sesión'
+    res.json(error)
   }
 }
 
@@ -49,6 +75,8 @@ exports.addUser = async (req, res) => {
   console.log(req.body)
 
   const { firstName, lastName, userName, email, password, phone, altPhone } = req.body
+  // Password encryption, 12 is the level of complexity for salting pass
+  const passEncypted = await Bcrypt.hash(password, 12)
   const STATUS = 'P'
 
   try {
@@ -57,7 +85,7 @@ exports.addUser = async (req, res) => {
       lastName,
       userName,
       email,
-      password,
+      "password": passEncypted,
       phone,
       altPhone,
       "status": STATUS

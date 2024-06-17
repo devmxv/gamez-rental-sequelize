@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <h2 class="text-center">Registro</h2>
+  <div class="row">
+    <div class="col-12">
+      <p>Para poder empezar a utilizar nuestra plataforma, llena el formulario de abajo y crear tu cuenta</p>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <form action="/users/new" method="post">
+        <div class="mb-3">
+          <label for="firstName" class="form-label">Nombre (s):</label>
+          <input type="text" class="form-control" name="firstName" id="first-name" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Apellidos:</label>
+          <input type="text" class="form-control" name="lastName" id="last-name" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="userName" class="form-label">Nombre de usuario:</label>
+          <input type="text" class="form-control" name="userName" id="user-name" required="required" />
+          <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input type="password" class="form-control" name="password" id="password" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="chkPassword" class="form-label">Confirmar contraseña:</label>
+          <input type="password" class="form-control" name="chkPassword" id="chkPassword" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico:</label>
+          <input type="text" class="form-control" name="email" id="email" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Teléfono:</label>
+          <input type="text" class="form-control" name="phone" id="phone" required="required" />
+        </div>
+        <div class="mb-3">
+          <label for="altPhone" class="form-label">Teléfono alternativo:</label>
+          <input type="text" class="form-control" name="altPhone" id="alt-phone" />
+        </div>
+        <button type="submit" class="btn btn-success">
+          Aceptar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
